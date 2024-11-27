@@ -79,15 +79,21 @@ function App() {
         },
     ];
 
-    console.log(tasks);
-
-    console.log("-----------------------");
-
+    // Separo le task
     const CompletedTasks = tasks.filter((task) => task.state == "completed");
     const notCompletedTasks = tasks.filter((task) => task.state != "completed");
 
-    console.log("Completed Tasks: ", CompletedTasks);
-    console.log("Not Completed Tasks: ", notCompletedTasks);
+    // Funzione per colorare lo stato delle task
+    function badgeColor(badgeText) {
+        switch (badgeText) {
+            case "backlog":
+                return "text-bg-danger";
+            case "in_progress":
+                return "text-bg-warning";
+            case "completed":
+                return "text-bg-success";
+        }
+    }
 
     return (
         <>
@@ -96,11 +102,11 @@ function App() {
             </section>
 
             <h2 className="p-3">Current Tasks ({notCompletedTasks.length})</h2>
-            <ul>
+            <ul className="notCompletedTaskList">
                 {notCompletedTasks.map((task) => (
-                    <li className={`${task.id} mb-3`}>
+                    <li key={task.id} className="mb-3">
                         <h6 className="d-inline pe-3">{task.title}</h6>
-                        <span className="badge text-bg-warning">
+                        <span className={`badge ${badgeColor(task.state)}`}>
                             {task.state}
                         </span>
                         <p className="m-0">Priority: {task.priority}</p>
@@ -112,11 +118,11 @@ function App() {
             <hr />
 
             <h2 className="p-3">Completed Tasks ({CompletedTasks.length})</h2>
-            <ul>
+            <ul className="completedTaskList">
                 {CompletedTasks.map((task) => (
-                    <li className={`${task.id} mb-3`}>
+                    <li key={task.id} className="mb-3">
                         <h6 className="d-inline pe-3">{task.title}</h6>
-                        <span className="badge text-bg-warning">
+                        <span className={`badge ${badgeColor(task.state)}`}>
                             {task.state}
                         </span>
                         <p className="m-0">Priority: {task.priority}</p>
