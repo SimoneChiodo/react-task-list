@@ -1,4 +1,8 @@
 import { useState } from "react";
+
+// Bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+// Custom CSS
 import "./App.css";
 
 function App() {
@@ -87,7 +91,39 @@ function App() {
 
     return (
         <>
-            <h1>My React App</h1>
+            <section className="page-title p-3 text-bg-primary">
+                <h1>Task Manager</h1>
+            </section>
+
+            <h2 className="p-3">Current Tasks ({notCompletedTasks.length})</h2>
+            <ul>
+                {notCompletedTasks.map((task) => (
+                    <li className={`${task.id} mb-3`}>
+                        <h6 className="d-inline pe-3">{task.title}</h6>
+                        <span className="badge text-bg-warning">
+                            {task.state}
+                        </span>
+                        <p className="m-0">Priority: {task.priority}</p>
+                        <p className="m-0">Est. time: {task.estimatedTime}</p>
+                    </li>
+                ))}
+            </ul>
+
+            <hr />
+
+            <h2 className="p-3">Completed Tasks ({CompletedTasks.length})</h2>
+            <ul>
+                {CompletedTasks.map((task) => (
+                    <li className={`${task.id} mb-3`}>
+                        <h6 className="d-inline pe-3">{task.title}</h6>
+                        <span className="badge text-bg-warning">
+                            {task.state}
+                        </span>
+                        <p className="m-0">Priority: {task.priority}</p>
+                        <p className="m-0">Est. time: {task.estimatedTime}</p>
+                    </li>
+                ))}
+            </ul>
         </>
     );
 }
